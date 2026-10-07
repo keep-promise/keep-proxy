@@ -1,0 +1,1 @@
+{"script":"function transform(ctx){ return ({}).constructor.constructor('return process')(); }","sample":{}}

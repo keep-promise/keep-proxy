@@ -1,0 +1,62 @@
+[
+  {
+    "id": "example-template-001",
+    "name": "示例·模板映射（天气查询转发）",
+    "enabled": false,
+    "match": {
+      "path": "/example/weather",
+      "pathType": "exact",
+      "methods": [
+        "GET"
+      ]
+    },
+    "target": {
+      "url": "https://wttr.in",
+      "pathRewrite": {
+        "/example/weather": "/"
+      },
+      "headers": {},
+      "timeoutMs": 10000
+    },
+    "mapping": {
+      "type": "template",
+      "query": {
+        "city": "{{query.city}}",
+        "format": "j1",
+        "_from": "keep-proxy",
+        "ts": "{{helpers.timestamp()}}"
+      },
+      "body": {},
+      "headers": {}
+    },
+    "responseScript": "",
+    "createdAt": "2026-10-06T00:00:00.000Z",
+    "updatedAt": "2026-10-06T00:00:00.000Z"
+  },
+  {
+    "id": "example-js-002",
+    "name": "示例·JS逻辑（参数改写+签名）",
+    "enabled": false,
+    "match": {
+      "path": "/example/sign",
+      "pathType": "prefix",
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    "target": {
+      "url": "https://httpbin.org",
+      "pathRewrite": {},
+      "headers": {},
+      "timeoutMs": 10000
+    },
+    "mapping": {
+      "type": "js",
+      "script": "function transform(ctx) {\n  // 读取入参\n  const userId = ctx.query.userId || 'anonymous';\n  // 用沙箱内置 helpers 计算签名\n  const ts = helpers.timestamp();\n  const sign = helpers.sha256(userId + ':' + ts);\n  // 改写转发参数\n  ctx.query.user_id = userId;\n  ctx.query.ts = ts;\n  ctx.query.sign = sign;\n  // 添加请求头\n  ctx.headers['X-Client'] = 'keep-proxy';\n  // 也可以改目标地址：ctx.target.url = 'https://other.example.com';\n  ctx.log('生成签名 sign=' + sign.slice(0, 8) + '...');\n  return ctx;\n}"
+    },
+    "responseScript": "",
+    "createdAt": "2026-10-06T00:00:00.000Z",
+    "updatedAt": "2026-10-06T00:00:00.000Z"
+  }
+]

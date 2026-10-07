@@ -1,0 +1,1 @@
+{"script":"function transform(ctx){ const ts = helpers.timestamp(); ctx.query.a = 'x-' + ctx.query.id; ctx.query.ts = ts; ctx.log('测试日志'); return ctx; }","sample":{"method":"GET","path":"/x","query":{"id":"9"}}}

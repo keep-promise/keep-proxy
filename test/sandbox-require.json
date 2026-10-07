@@ -1,0 +1,1 @@
+{"script":"function transform(ctx){ const fs = require('fs'); return fs.readdirSync('/'); }","sample":{}}

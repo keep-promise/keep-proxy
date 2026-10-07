@@ -1,0 +1,1 @@
+{"name":"测试-模板映射","enabled":true,"match":{"path":"/test/tpl","pathType":"exact","methods":["GET"]},"target":{"url":"http://127.0.0.1:9099","pathRewrite":{"/test/tpl":"/echo"},"headers":{},"timeoutMs":5000},"mapping":{"type":"template","query":{"bizId":"{{query.orderId}}","ts":"{{helpers.timestamp()}}","app":"keep"},"body":{},"headers":{}},"responseScript":""}
