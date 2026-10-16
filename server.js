@@ -50,7 +50,7 @@ server.on('clientError', (err, socket) => {
   socket.end('HTTP/1.1 400 Bad Request\r\n\r\n');
 });
 
-server.listen(config.port, () => {
+server.listen(config.port, '0.0.0.0', () => {
   console.log('==============================================');
   console.log('  Keep Proxy Gateway 已启动');
   console.log(`  管理后台: http://127.0.0.1:${config.port}/admin`);
